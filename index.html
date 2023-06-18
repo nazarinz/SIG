@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SIG</title>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <style>
+      #map {
+        height: 500px;
+      }
+
+      .leaflet-popup-content {
+        /* font-size: 20px;
+        color: aqua; */
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+  </body>
+  <script>
+    // Define the custom icon
+    var customIcon = L.icon({
+      iconUrl: 'https://cdn-icons-png.flaticon.com/128/4985/4985836.png',
+      iconSize: [38, 38],
+      iconAnchor: [19, 19],
+      popupAnchor: [0, -10],
+    });
+
+    // Map Sukabumi
+    var map = L.map('map').setView([-6.9218, 106.9265], 14);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    // Define an array of marker locations
+    var markerLocations = [
+      { latitude: -6.918337696301907, longitude: 106.92954052316891, marker: '<b>Kosan Bu Heri</b></br>Gg. Ajid I No.17b-25, RT.02/RW.05, Gunungparang, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111' },
+      { latitude: -6.920631212074173, longitude: 106.93070696735735, marker: '<b>Kosan oming baldes</b></br>Jl. Balai Desa No.58, Gunungparang, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111' },
+      { latitude: -6.914679160609137, longitude: 106.928957190141, marker: '<b>Kosan Bu ulfa</b></br>Jl. Cipelang Leutik, Selabatu, Kec. Cikole, Kota Sukabumi, Jawa Barat 43114' },
+      { latitude: -6.919988817928941, longitude: 106.92189192433452, marker: '<b>Kosan Bu Dice</b></br>Jl. Arif Rahman Hakim No.83, Benteng, Kec. Warudoyong, Kota Sukabumi, Jawa Barat 43131' },
+      { latitude: -6.914535638157021, longitude: 106.92206358570898, marker: '<b>Kosan Bu lastri</b></br>Jalan Aminta Azmali, Gunungpuyuh, Sriwidari, Kec. Gunungpuyuh, Kota Sukabumi, Jawa Barat 43121' },
+      { latitude: -6.90472223039971, longitude: 106.92100774049862, marker: '<b>Kosan putri sukabumi</b></br>Jl. Karamat No.47, Karamat, Kec. Gunungpuyuh, Kota Sukabumi, Jawa Barat 43114' },
+      { latitude: -6.90416670421333, longitude: 106.9204473475079, marker: '<b>Kosan PANIISAN Sukabumi</b></br>Jl. Karamat No.38, Karamat, Kec. Gunungpuyuh, Kota Sukabumi, Jawa Barat 43122' },
+      { latitude: -6.916095714971868, longitude: 106.929202077605, marker: '<b>Kosan Karyawan/ti</b></br>Jl. R. E. Martadinata Gg. Ajid I No.18, Gunungparang, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111' },
+      { latitude: -6.9200151813502515, longitude: 106.92508220461812, marker: '<b>Kosan Al-Ihsan</b></br>Jl.Sriwidari, Kec. Gunungpuyuh, Kota Sukabumi, Jawa Barat 43121' },
+      { latitude: -6.927854016465911, longitude: 106.93229198234513, marker: '<b>Kosan 103 Sukabumi</b></br>Jl. Pemuda No.103, Citamiang, Kec. Citamiang, Kota Sukabumi, Jawa Barat 43143' },
+      { latitude: -6.9426792829990225, longitude: 106.94001674419549, marker: '<b>Kosan Rumah Omah homestay & indekost SUKABUMI</b></br>Jl. Limusnunggal No.21, Limusnunggal, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43165' },
+      { latitude: -6.906552530440754, longitude: 106.93555354845974, marker: '<b>Kosan Cimanggah 19 Sukabumi</b></br>Gg. Cimanggah, Cikole, Kec. Cikole, Kota Sukabumi, Jawa Barat 43113' },
+      { latitude: -6.920356002975992, longitude: 106.92473888186922, marker: '<b>Kosan BERKAH SUKABUMI</b></br>Jl. Masjid No.26, Gunungparang, Kec. Cikole, Kota Sukabumi, Jawa Barat 43111' },
+      { latitude: -6.905189202641204, longitude: 106.94619655367579, marker: '<b>Kosan NAZ Kost Sukabumi</b></br>Jl. Ciaul Pasir No.165, Cisarua, Kec. Cikole, Kota Sukabumi, Jawa Barat 43115' },
+      { latitude: -6.9363238713170166, longitude: 106.9293742847033, marker: '<b>Kosan Isfahaki</b></br>Jalan Rh.Didi Sukardi No.120, Gedong Panjang, Citamiang, Kec. Citamiang, Kota Sukabumi, Jawa Barat 43144' },
+      { latitude: -6.9372453596971075, longitude: 106.95258136999756, marker: '<b>Kosan Maharani Kost Sukabumi</b></br>Depan Kampus IPB, Jl. Sarasa No.88, Limusnunggal, Kec. Cibeureum, Kota Sukabumi, Jawa Barat 43142' },
+      { latitude: -6.9365425122785505, longitude: 106.92458354919319, marker: '<b>Kosan Kost SW</b></br>Jl. Lio Santa, Citamiang, Kec. Citamiang, Kota Sukabumi, Jawa Barat 43143' },
+    ];
+
+    // Loop over the markerLocations array and create a marker for each location
+    for (var i = 0; i < markerLocations.length; i++) {
+      var marker = L.marker([markerLocations[i].latitude, markerLocations[i].longitude, markerLocations[i].marker], { icon: customIcon }).addTo(map);
+      marker.bindPopup(markerLocations[i].marker);
+    }
+  </script>
+</html>
